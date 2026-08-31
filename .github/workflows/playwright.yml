@@ -1,0 +1,43 @@
+name: UI tests (Playwright)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx --workspace=ui-tests playwright install --with-deps chromium
+
+      - name: Run UI tests
+        run: npm run test:ui -- --project=chromium
+        env:
+          BASE_URL: https://saucedemo.com
+          # Repo secrets take priority; falls back to the public SauceDemo
+          # demo credentials so the workflow runs without extra setup.
+          SAUCEDEMO_USERNAME: ${{ secrets.SAUCEDEMO_USERNAME || 'standard_user' }}
+          SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD || 'secret_sauce' }}
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: ui-tests/playwright-report/
+          retention-days: 14

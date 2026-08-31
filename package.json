@@ -1,0 +1,31 @@
+{
+  "name": "base-framework",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reusable TypeScript test automation framework template (Playwright UI + Jest API), organized around OOP/SOLID principles.",
+  "workspaces": [
+    "ui-tests",
+    "api-tests"
+  ],
+  "scripts": {
+    "test": "npm run test:ui && npm run test:api",
+    "test:ui": "npm run test --workspace=ui-tests",
+    "test:api": "npm run test --workspace=api-tests",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-playwright": "^2.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.0"
+  },
+  "license": "UNLICENSED"
+}
