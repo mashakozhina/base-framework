@@ -1,4 +1,4 @@
-name: UI tests (Playwright)
+name: Tests (API + UI)
 
 on:
   push:
@@ -7,7 +7,40 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  api-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run API tests
+        run: npm run test:api
+        env:
+          BASE_URL: https://wizard-world-api.herokuapp.com
+          # wizard-world-api needs no auth; left here so a future task pointed
+          # at a real authenticated API only has to fill these in via secrets.
+          BASIC_AUTH_USERNAME: ${{ secrets.BASIC_AUTH_USERNAME }}
+          BASIC_AUTH_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
+
+      - name: Upload API test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-report
+          path: api-tests/jest-report/
+          retention-days: 14
+
+  ui-tests:
+    needs: api-tests
     runs-on: ubuntu-latest
     timeout-minutes: 15
 

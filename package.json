@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "test": "npm run test:ui && npm run test:api",
-    "test:ui": "npm run test --workspace=ui-tests",
-    "test:api": "npm run test --workspace=api-tests",
+    "test:ui": "npm run test --workspace=ui-tests --",
+    "test:api": "npm run test --workspace=api-tests --",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
