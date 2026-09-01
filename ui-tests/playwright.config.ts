@@ -20,8 +20,8 @@ export default defineConfig({
     baseURL: process.env.BASE_URL ?? 'https://saucedemo.com',
     testIdAttribute: 'data-test',
     screenshot: 'only-on-failure',
-    video: 'on-first-retry',
-    trace: 'on-first-retry',
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure',
   },
   projects: [
     {

@@ -8,13 +8,13 @@ test.describe('Cart', () => {
   test('adding item updates the cart count and contents', async ({ inventoryPage, cartPage }) => {
     const { name, slug } = products.sauceLabsBackpack;
     await inventoryPage.goto(routes.inventory);
-    await inventoryPage.assertPageOpened();
+    await inventoryPage.verifyPageOpened();
 
     await inventoryPage.addToCart(slug);
     await expect(inventoryPage.cartBadge).toHaveText('1');
 
     await inventoryPage.openCart();
-    await cartPage.assertPageOpened();
+    await cartPage.verifyPageOpened();
     await expect(cartPage.getItemByName(name)).toBeVisible();
   });
 });

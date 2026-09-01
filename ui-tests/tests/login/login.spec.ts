@@ -6,7 +6,7 @@ test.use({ storageState: { cookies: [], origins: [] } });
 test.describe('Login', () => {
   test.beforeEach(async ({ loginPage }) => {
     await loginPage.goto();
-    await loginPage.assertPageOpened();
+    await loginPage.verifyPageOpened();
   });
 
   test('logs in successfully with valid credentials', async ({
@@ -19,7 +19,7 @@ test.describe('Login', () => {
       process.env.SAUCEDEMO_PASSWORD ?? 'secret_sauce',
     );
 
-    await inventoryPage.assertPageOpened();
+    await inventoryPage.verifyPageOpened();
     await expect(page).toHaveURL(/inventory\.html/);
   });
 

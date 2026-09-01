@@ -15,7 +15,7 @@ export class LoginPage extends BasePage {
     this.errorMessage = page.getByTestId('error');
   }
 
-  async assertPageOpened(): Promise<void> {
+  async verifyPageOpened(): Promise<void> {
     await expect(this.loginButton).toBeVisible();
   }
 

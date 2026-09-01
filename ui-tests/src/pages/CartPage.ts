@@ -1,5 +1,6 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { pageTitles } from '../fixtures/pageTitles';
 
 export class CartPage extends BasePage {
   readonly pageTitle: Locator;
@@ -13,8 +14,9 @@ export class CartPage extends BasePage {
     this.itemNames = page.getByTestId('inventory-item-name');
   }
 
-  async assertPageOpened(): Promise<void> {
-    await this.assertTextInElement(this.pageTitle, 'Your Cart');
+  async verifyPageOpened(): Promise<void> {
+    await expect(this.pageTitle).toBeVisible();
+    await expect(this.pageTitle).toHaveText(pageTitles.cart);
   }
 
   getItemByName(name: string): Locator {
