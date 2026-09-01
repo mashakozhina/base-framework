@@ -7,15 +7,6 @@ export abstract class BasePage {
     await this.page.goto(path);
   }
 
-  async waitForElementVisible(locator: Locator): Promise<void> {
-    await locator.waitFor({ state: 'visible' });
-  }
-
-  /** Waits for a locator to disappear — e.g. a loading spinner */
-  async waitForElementDisappear(locator: Locator): Promise<void> {
-    await locator.waitFor({ state: 'hidden' });
-  }
-
   async assertTextInElement(locator: Locator, text: string): Promise<void> {
     await expect(locator).toContainText(text);
   }
