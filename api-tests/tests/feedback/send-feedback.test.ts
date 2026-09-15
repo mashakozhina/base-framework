@@ -1,5 +1,5 @@
 import { Feedback } from '../../src/controllers/feedback';
-import { feedbackData } from '../../fixtures/wizard-world/feedback-data';
+import { feedbackData } from '../../fixtures/wizard-world/feedback/feedback-data';
 import { handleError } from '../../src/utils/error-handler';
 
 describe('Create Feedback', () => {

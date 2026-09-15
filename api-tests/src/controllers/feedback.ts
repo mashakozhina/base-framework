@@ -1,6 +1,6 @@
 import { HttpClient } from '../utils/http-client';
 import { UserFeedback } from '../interfaces/feedback';
-import { appData } from '../../fixtures/wizard-world/app-data';
+import { appData } from '../../fixtures/wizard-world/app/app-data';
 
 /** One controller per resource.*/
 export class Feedback {

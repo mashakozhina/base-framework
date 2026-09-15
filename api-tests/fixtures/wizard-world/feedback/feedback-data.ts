@@ -1,6 +1,6 @@
 import { Builder } from 'builder-pattern';
-import { UserFeedback } from '../../src/interfaces/feedback';
-import { FeedbackType } from '../../src/enums/feedback-type';
+import { UserFeedback } from '../../../src/interfaces/feedback';
+import { FeedbackType } from '../../../src/enums/feedback-type';
 
 export function generateFeedback() {
   return Builder<UserFeedback>()
