@@ -1,6 +1,6 @@
 import { HttpClient } from '../utils/http-client';
 import { ParsedResponse } from '../utils/response-parser';
-import { appData } from '../../fixtures/wizard-world/app-data';
+import { appData } from '../../fixtures/wizard-world/app/app-data';
 
 export class Houses {
   private readonly hostUrl: string | undefined;

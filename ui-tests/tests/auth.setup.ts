@@ -15,6 +15,7 @@ setup('authenticate', async ({ page, loginPage, inventoryPage }) => {
     process.env.SAUCEDEMO_PASSWORD ?? 'secret_sauce',
   );
   await expect(inventoryPage.pageTitle).toHaveText('Products');
+  await expect(page).toHaveURL(/inventory\.html$/);
 
   await page.context().storageState({ path: STORAGE_STATE_PATH });
 });
