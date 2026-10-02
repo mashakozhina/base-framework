@@ -17,6 +17,7 @@ export class LoginPage extends BasePage {
 
   async verifyPageOpened(): Promise<void> {
     await expect(this.loginButton).toBeVisible();
+    await expect(this.page).toHaveURL(/saucedemo\.com\/$/);
   }
 
   async login(username: string, password: string): Promise<void> {

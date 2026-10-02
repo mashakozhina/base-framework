@@ -17,6 +17,7 @@ export class CartPage extends BasePage {
   async verifyPageOpened(): Promise<void> {
     await expect(this.pageTitle).toBeVisible();
     await expect(this.pageTitle).toHaveText(pageTitles.cart);
+    await expect(this.page).toHaveURL(/.*\/cart.html$/);
   }
 
   getItemByName(name: string): Locator {

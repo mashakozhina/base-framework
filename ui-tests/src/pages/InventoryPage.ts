@@ -18,6 +18,7 @@ export class InventoryPage extends BasePage {
   async verifyPageOpened(): Promise<void> {
     await expect(this.pageTitle).toBeVisible();
     await expect(this.pageTitle).toHaveText(pageTitles.inventory);
+    await expect(this.page).toHaveURL(/.*\/inventory.html$/);
   }
 
   addToCartButton(productSlug: string): Locator {
