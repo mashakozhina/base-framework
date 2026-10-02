@@ -1,7 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config();
+// Load ui-tests/.env no matter which folder the tests are started from.
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const STORAGE_STATE_PATH = 'playwright/.auth/user.json';
 
@@ -17,7 +19,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: [['html', { open: 'never' }]],
   use: {
-    baseURL: process.env.BASE_URL ?? 'https://saucedemo.com',
+    baseURL: process.env.BASE_URL,
     testIdAttribute: 'data-test',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

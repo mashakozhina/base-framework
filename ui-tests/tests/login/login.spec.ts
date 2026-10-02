@@ -1,34 +1,38 @@
 import { test, expect } from '../../src/fixtures/pageObjects';
+import { routes } from '../../src/fixtures/routes';
+import { customers } from '../../src/fixtures/customer';
+import { errorMessageType } from '../../src/fixtures/errorType';
 
-// Login itself is what's under test here, so start unauthenticated.
 test.use({ storageState: { cookies: [], origins: [] } });
 
-test.describe('Login', () => {
+test.describe('Login-', () => {
   test.beforeEach(async ({ loginPage }) => {
-    await loginPage.goto();
+    await loginPage.goto(routes.login);
     await loginPage.verifyPageOpened();
   });
 
-  test('logs in successfully with valid credentials', async ({
+  test('valid credentials lead on the inventory page and show the product list', async ({
     page,
     loginPage,
     inventoryPage,
   }) => {
-    await loginPage.login(
-      process.env.SAUCEDEMO_USERNAME ?? 'standard_user',
-      process.env.SAUCEDEMO_PASSWORD ?? 'secret_sauce',
-    );
-
+    await loginPage.login(customers.standard.username, customers.standard.password);
     await inventoryPage.verifyPageOpened();
-    await expect(page).toHaveURL(/inventory\.html/);
+    await expect(page).toHaveURL(routes.inventory);
   });
 
-  test('rejects login with an invalid password', async ({ page, loginPage }) => {
-    await loginPage.login(process.env.SAUCEDEMO_USERNAME ?? 'standard_user', 'wrong_password');
+  test('invalid username/password combination shows an error message', async ({
+    page,
+    loginPage,
+  }) => {
+    await loginPage.login(customers.invalidPassword.username, customers.invalidPassword.password);
+    await loginPage.assertErrorMessage(errorMessageType.invalidCredentials);
+    await expect(page).toHaveURL(routes.login);
+  });
 
-    await expect(loginPage.errorMessage).toHaveText(
-      'Epic sadface: Username and password do not match any user in this service',
-    );
-    await expect(page).toHaveURL(/saucedemo\.com\/?$/);
+  test('locked-out user shows a specific error message', async ({ loginPage }) => {
+    const lockedOutUser = customers.lockedOut;
+    await loginPage.login(lockedOutUser.username, lockedOutUser.password);
+    await loginPage.assertErrorMessage(errorMessageType.lockedOutUser);
   });
 });
