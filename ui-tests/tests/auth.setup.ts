@@ -1,4 +1,5 @@
 import { test as setup, expect } from '../src/fixtures/pageObjects';
+import { routes } from '../src/fixtures/routes';
 
 const STORAGE_STATE_PATH = 'playwright/.auth/user.json';
 
@@ -9,13 +10,13 @@ const STORAGE_STATE_PATH = 'playwright/.auth/user.json';
  * authenticated instead of repeating the login flow itself.
  */
 setup('authenticate', async ({ page, loginPage, inventoryPage }) => {
-  await loginPage.goto();
+  await loginPage.goto(routes.login);
   await loginPage.login(
     process.env.SAUCEDEMO_USERNAME ?? 'standard_user',
     process.env.SAUCEDEMO_PASSWORD ?? 'secret_sauce',
   );
   await expect(inventoryPage.pageTitle).toHaveText('Products');
-  await expect(page).toHaveURL(/inventory\.html$/);
+  await expect(page).toHaveURL(routes.inventory);
 
   await page.context().storageState({ path: STORAGE_STATE_PATH });
 });

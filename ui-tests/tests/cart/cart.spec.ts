@@ -6,15 +6,15 @@ import { products } from '../../src/fixtures/products';
 // already starts every test authenticated.
 test.describe('Cart', () => {
   test('adding item updates the cart count and contents', async ({ inventoryPage, cartPage }) => {
-    const { name, slug } = products.sauceLabsBackpack;
+    const itemToAdd = products.sauceLabsBackpack;
     await inventoryPage.goto(routes.inventory);
     await inventoryPage.verifyPageOpened();
 
-    await inventoryPage.addToCart(slug);
+    await inventoryPage.addToCart(itemToAdd.slug);
     await expect(inventoryPage.cartBadge).toHaveText('1');
 
     await inventoryPage.openCart();
     await cartPage.verifyPageOpened();
-    await expect(cartPage.getItemByName(name)).toBeVisible();
+    await expect(cartPage.getItemByName(itemToAdd.name)).toBeVisible();
   });
 });

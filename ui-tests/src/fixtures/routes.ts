@@ -1,5 +1,5 @@
 export const routes = {
-  login: '',
+  login: '/',
   inventory: '/inventory.html',
   cart: '/cart.html',
 } as const;

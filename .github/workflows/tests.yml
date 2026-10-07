@@ -61,7 +61,7 @@ jobs:
       - name: Run UI tests
         run: npm run test:ui -- --project=chromium
         env:
-          BASE_URL: https://saucedemo.com
+          BASE_URL: https://www.saucedemo.com
           # Repo secrets take priority; falls back to the public SauceDemo
           # demo credentials so the workflow runs without extra setup.
           SAUCEDEMO_USERNAME: ${{ secrets.SAUCEDEMO_USERNAME || 'standard_user' }}
